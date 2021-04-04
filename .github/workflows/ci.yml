@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Mono Build
+        run: |
+          chmod +x build.sh && ./build.sh
+        
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: program
+          path: main.exe
+          retention-days: 1
+  
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Markdown Check
+        run: |
+          sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
+          npm install -g markdownlint-cli
+          markdownlint *.md
+      - name: Shell Check
+        if: always()
+        run: |
+          sudo apt-get install shellcheck
+          shellcheck *.sh
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: program
+      - name: CSharp Check
+        if: always()
+        run: |
+          sudo apt update
+          sudo apt-get install gendarme
+          gendarme -- *.exe
