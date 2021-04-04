@@ -6,4 +6,4 @@ This repository is the backup of the corresponding REPL. It contains laboratory 
 
 ## Notes
 
-Several linters such as markdownlint, shellcheck and gendarme are used in CI. You have to install [Flowgorithm](http://www.flowgorithm.org/index.htm) to open flowchart.
+Several linters such as markdownlint, shellcheck and gendarme are used in CI. You have to install [Flowgorithm](http://www.flowgorithm.org/index.htm) to open flowchart (with fprg extension) if there is one or use draw.io (when file has drawio extension).
