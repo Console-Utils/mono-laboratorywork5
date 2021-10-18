@@ -4,4 +4,6 @@
 
 ## Description
 
+> ⚠️ This project is no longer maintained.
+
 This repository contains laboratory work made for another person.
